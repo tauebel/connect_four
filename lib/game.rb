@@ -31,12 +31,27 @@ class Game
     @turn.name
   end
 
+  def game_won
+    return "CONNECT FOUR! Congratulations #{@turn.name}, you have won in #{@turn_number/2} moves!!!"
+    show_board
+  end
+
+  def game_tied
+    return "This game is tied, the board has no more slots in it"
+    show_board
+  end
+
   def possible_moves
     @board.available_slots
   end
 
   def show_board
     @board.print_board
+  end
+
+  def win?(column,row)
+    true if @board.connect_4?(column,row) == true
+    false
   end
 
   def make_move(column, row)
@@ -47,6 +62,10 @@ class Game
     else
       @board.fill_slot("Y", column, row)
     end
+
+    return game_won if win?(column,row) == true
+    return game_tied if @board.full? == true
+
     next_turn
   end
 

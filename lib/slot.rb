@@ -15,7 +15,7 @@ class Slot
     return "already filled" if empty? == false
     @empty = false
     @color = color
-    color == "R" ? @value = 1 : @value = 2
+    color == "R" ? @value = 1 : @value = 5
   end
 
   def to_s

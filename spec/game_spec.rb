@@ -47,4 +47,17 @@ describe Game do
     end
   end
 
+  context "win?" do
+    it "returns true if game is won" do
+
+    end
+  end
+
+  context "game_over" do
+    it "ends game" do
+      game.make_move(3,1)
+      game.win?(true)
+      game.game_over.should eq "CONNECT FOUR! Congratulations Jake, you have won in 1 moves!!!"
+    end
+  end
 end
