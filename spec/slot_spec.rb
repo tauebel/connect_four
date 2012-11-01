@@ -9,7 +9,7 @@ describe Slot do
     end
 
     it "returns false when filled" do
-      slot.fill("red")
+      slot.fill("R")
       slot.should_not be_empty
     end
   end
@@ -20,26 +20,31 @@ describe Slot do
     end
 
     it "returns color when filled" do
-      slot.fill("yellow")
-      slot.color.should eq "yellow"
+      slot.fill("Y")
+      slot.color.should eq "Y"
     end
   end
 
   context "fill" do
+
     it "fills slot with color" do
-      slot.fill("red")
-      slot.color.should eq "red"
+      slot.fill("R")
+      slot.color.should eq "R"
     end
 
     it "raises an error if already filled" do
-      slot.fill("red")
-      slot.fill("yellow").should eq "already filled"
+      slot.fill("R")
+      slot.fill("Y").should eq "already filled"
     end
 
     it "doesn't change slot if already filled" do
-      slot.fill("red")
-      slot.fill("yellow")
-      slot.color.should eq "red"
+      slot.fill("R")
+      slot.fill("Y")
+      slot.color.should eq "R"
+    end
+
+    it "should change value from 0 to 1 " do
+      expect{slot.fill("R")}.to change{slot.value}.from(0).to(1)
     end
   end
 
