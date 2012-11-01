@@ -1,8 +1,10 @@
+require_relative 'game'
+
 class Player
 
   attr_reader :name
 
-	def initialize(name)
+  def initialize(name)
     @name = name
   end
 
@@ -14,6 +16,6 @@ class Player
   def stats
     db.execute("Select wins, loss, draw from Players where id = #{name.id}")
   end
-	
+
 end
 
