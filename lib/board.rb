@@ -17,15 +17,20 @@ class Board
     true
   end
 
-  def fill_slot(color,column, row)
-    filled = false
+  def slot_available?(column, row)
     @available_slots.each do |slot|
       if slot[0] == column && slot[1] == row
-        @slots_array[row - 1][column - 1].fill(color)
-        filled = true
+        return true
       end
     end
-    return "slot not available" if filled == false
+    false
+  end
+
+  def fill_slot(color,column, row)
+
+    return "slot not available" if !slot_available?(column,row)
+
+    @slots_array[row - 1][column - 1].fill(color)
     update_slots(column,row)
   end
 
