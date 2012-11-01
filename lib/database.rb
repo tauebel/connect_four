@@ -1,6 +1,6 @@
 require 'sqlite3'
 
-
+#require_relative 'player'
 
 class Database
   attr_accessor :db, :db_name
@@ -9,7 +9,7 @@ class Database
     @db_name = db_name
     create_db(schema)
     @db = SQLite3::Database.open db_name
- 
+
   end
 
   def self.insert_player(player)

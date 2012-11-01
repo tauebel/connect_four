@@ -1,10 +1,8 @@
-require_relative 'database'
-
 class Player
 
   attr_accessor :name, :id, :email
 
-	def initialize(name, email)
+    def initialize(name, email)
     @name = name
     @email = email
     @id = get_id
@@ -39,10 +37,3 @@ class Player
     end
 
 end
-
-# jake = Player.new("Brian", "tester@aol.com")
-# puts jake.id
-# puts jake
-
-
-
