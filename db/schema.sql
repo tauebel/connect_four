@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS players (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name VARCHAR(50),
+  email VARCHAR(128) UNIQUE,
   win INTEGER,
   loss INTEGER,
   draw INTEGER,
@@ -12,7 +13,7 @@ CREATE TABLE IF NOT EXISTS games (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   player1 INTEGER,
   player2 INTEGER,
-  result CHAR,
+  winner INTEGER,
   created_at TIMESTAMP,
   updated_at TIMESTAMP
 );
