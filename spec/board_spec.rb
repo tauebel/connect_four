@@ -73,12 +73,12 @@ describe Board do
     end
 
     it "returns true if one of the fields are winning" do
-      board.fill_slot("Y", 1 , 1 )
+      board.fill_slot("Y", 5 , 1 )
       board.fill_slot("Y", 2 , 1 )
       board.fill_slot("Y", 3 , 1 )
       board.fill_slot("Y", 4 , 1 )
 
-      board.connect_4?(3,1).should eq true
+      board.connect_4?(5,1).should eq true
     end
   end
 
