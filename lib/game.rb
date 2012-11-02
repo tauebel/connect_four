@@ -1,44 +1,27 @@
 require_relative 'board'
 require_relative 'player'
-
-
-## status, history, result, check_win
+require_relative 'ai'
 
 class Game
-  attr_reader :board
+  attr_reader :board, :turn_number, :turn, :allowed, :game_won, :game_tied
   def initialize(player1, player2)
     @player1 = player1
     @player2 = player2
+    @id = retrieve_id
     @turn_number = 1
     @turn = player1
-    next_game
-  end
-
-  def next_game
     @board = Board.new
+    @game_won = false
+    @game_tied = false
   end
 
   def next_turn
     @turn_number += 1
-  end
-
-  def turn
     if @turn_number.even?
       @turn = @player2
     else
       @turn = @player1
     end
-    @turn.name
-  end
-
-  def game_won
-    return "CONNECT FOUR! Congratulations #{@turn.name}, you have won in #{@turn_number/2} moves!!!"
-    show_board
-  end
-
-  def game_tied
-    return "This game is tied, the board has no more slots in it"
-    show_board
   end
 
   def possible_moves
@@ -49,13 +32,16 @@ class Game
     @board.print_board
   end
 
-  def win?(column,row)
-    true if @board.connect_4?(column,row) == true
-    false
+  def to_db(column,row)
+    add(@turn.id, column, row)
   end
 
   def make_move(column, row)
-    return "This is not an available move" if @board.slot_available?(column,row) == false
+    @allowed = true
+    if @board.slot_available?(column,row) == false
+      @allowed = false
+      return
+    end
 
     if @turn == @player1
       @board.fill_slot("R", column, row)
@@ -63,11 +49,26 @@ class Game
       @board.fill_slot("Y", column, row)
     end
 
-    return game_won if win?(column,row) == true
-    return game_tied if @board.full? == true
 
+    if @board.connect_4?(column,row) == true
+      Database.game_winner(self, @turn)
+      return @game_won = true
+    end
+
+    return @game_tied = true if @board.full? == true
+
+    game_move_to_db(@turn, "#{column}, #{row}")
     next_turn
   end
 
+  private
 
+    def game_move_to_db(turn, move)
+      Database.insert_move(self, turn, move)
+    end
+
+    def retrieve_id
+      Database.insert_game(@player1, @player2)
+      Database.retrieve_game
+    end
 end

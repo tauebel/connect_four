@@ -44,7 +44,7 @@ class Board
   end
 
   def print_board
-    @slots.each {|row| print "#{row.inspect}\n".gsub(","," ")}
+    @slots.reverse.each {|row| print "#{row.inspect}\n".gsub(","," ")}
   end
 
   def connect_4?(column,row)
@@ -96,6 +96,7 @@ private
     possible_fields
   end
 end
+
 
 FIELD_H_1 = [[1,1], [2,1], [3,1], [4,1]]
 FIELD_H_2 = [[2,1], [3,1], [4,1], [5,1]]
@@ -192,8 +193,5 @@ FIELD_D_21 = [[4,4], [5,3], [6,2], [7,1]]
 FIELD_D_22 = [[3,6], [4,5], [5,4], [6,3]]
 FIELD_D_23 = [[4,5], [5,4], [6,3], [7,2]]
 FIELD_D_24 = [[4,6], [5,5], [6,4], [7,3]]
-
-
-
 
 

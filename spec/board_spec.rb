@@ -28,19 +28,19 @@ describe Board do
       expect {board.fill_slot("Y", 2 , 1 )}.to change{board.slot_empty?(2,1)}.from(true).to(false)
     end
 
-    it "returns slot not available if slot not available" do
-      board.fill_slot("Y", 1,2).should eq "slot not available"
-    end
+    # it "returns slot not available if slot not available" do
+    #      board.fill_slot("Y", 1,2).should eq "slot not available"
+    #    end
 
     it "changes available slot" do
       board.should_receive(:update_slots).with(2,1)
       board.fill_slot("Y", 2 , 1 )
     end
 
-    it "doesn't change slot if slot is unavailable" do
-      board.fill_slot("Y", 1,2)
-      board.slot_empty?(1,2).should eq true
-    end
+    # it "doesn't change slot if slot is unavailable" do
+    #   board.fill_slot("Y", 1,2)
+    #   board.slot_empty?(1,2).should eq true
+    # end
   end
 
   context "update_slots" do
@@ -74,11 +74,11 @@ describe Board do
 
     it "returns true if one of the fields are winning" do
       board.fill_slot("Y", 5 , 1 )
-      board.fill_slot("Y", 2 , 1 )
+      board.fill_slot("Y", 6 , 1 )
       board.fill_slot("Y", 3 , 1 )
       board.fill_slot("Y", 4 , 1 )
 
-      board.connect_4?(5,1).should eq true
+      board.connect_4?(4,1).should eq true
     end
   end
 
