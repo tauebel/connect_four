@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS players (
   loss INTEGER,
   draw INTEGER,
   created_at TIMESTAMP,
-  updated_at TIMESTAMP
+  updated_at TIMESTAMP DEFAULT (datetime('now','localtime'))
+
 );
 
 CREATE TABLE IF NOT EXISTS games (
@@ -15,7 +16,7 @@ CREATE TABLE IF NOT EXISTS games (
   player2 INTEGER,
   winner INTEGER,
   created_at TIMESTAMP,
-  updated_at TIMESTAMP
+  updated_at TIMESTAMP DEFAULT (datetime('now','localtime'))
 );
 
 CREATE TABLE IF NOT EXISTS game_moves (
