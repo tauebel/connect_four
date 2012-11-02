@@ -1,3 +1,6 @@
 # Connect Four
 
-*Replace this file with your own README.  At minimum, you should cover installation and basic usage instructions.*
+Use bundler to install gems first
+
+Run the game by running the game_ui.rb file in the terminal.
+_
