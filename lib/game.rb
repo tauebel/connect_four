@@ -1,6 +1,6 @@
 require_relative 'board'
 require_relative 'player'
-# require_relative 'ai'
+
 
 class Game
   attr_reader :board, :turn_number, :turn, :allowed, :game_won, :game_tied, :id
@@ -71,4 +71,12 @@ class Game
       Database.insert_game(@player1, @player2)
       Database.retrieve_game
     end
-end
+  end
+
+# jake = Player.new("Jake", "Spendar89@aol.com")
+# bot = Player.new("Connect This AI", "NA")
+# game = Game.new(jake, bot)
+# ai = AI.new(game, game.board)
+# game.make_move(1,1)
+# ai.make_move
+

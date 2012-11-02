@@ -1,7 +1,7 @@
 require_relative 'slot'
 
 class Board
-  attr_reader :slots, :available_slots
+  attr_reader :slots, :available_slots, :fields
   def initialize
     @full = false
     @slots = generate_slots
