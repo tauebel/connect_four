@@ -6,7 +6,7 @@ describe "Database" do
 let (:db)     {Database.new("rspec_test_db.db", "../db/schema.sql")}
 let(:player)  {Player.new("Joe", "joe@gmail.com")}
 let(:player2) {Player.new("ted", "ted@gmail.com")}
-let(:new_game){Game.new(player, player2)} #<<<<<<<<<<<<<< FIX THIS!!!!!!!!! >>>>>>>>>>>>>>>>>>>
+let(:new_game){Game.new(player, player2)}
 
   it "has the correct tables" do
     [:players, :games, :game_moves].each do |table_name|
