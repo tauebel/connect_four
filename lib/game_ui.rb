@@ -69,7 +69,7 @@ class GameUi
           p @game.possible_moves
           puts "#{@game.turn.name}, choose your move.  Please just type in the numbers separated by comma, no brackets."
           move = gets.chomp
-          @game.make_move(move[0].to_i,move[2].to_i)
+          @game.get_input(move.to_i)
           puts "this move is not allowed" if !@game.allowed
         end
       end

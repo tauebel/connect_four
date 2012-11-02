@@ -37,6 +37,13 @@ class Game
     add(@turn.id, column, row)
   end
 
+  def get_input(row)
+    @board.available_slots.each.each do |slot| 
+        @selected_slot = slot if slot.include?(row)
+    end
+    make_move(@selected_slot[0], @selected_slot[1])
+  end
+
   def make_move(column, row)
     @allowed = true
     if @board.slot_available?(column,row) == false
