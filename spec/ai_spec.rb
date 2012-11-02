@@ -13,9 +13,6 @@ describe  AI do
       game.should_receive(:make_move).with(3,2)
       ai.make_move
     end
-
-     ai.get_possible_fields
-
   end
 
 end
