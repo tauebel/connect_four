@@ -49,11 +49,6 @@ class Game
     @board.print_board
   end
 
-  def to_db(column,row)
-    add(@turn.id, column, row)
-
-  end
-
   def win?(column,row)
     true if @board.connect_4?(column,row) == true
     false
@@ -73,8 +68,6 @@ class Game
 
     next_turn
   end
-end
 
-game = game.new(player1, player2)
-game.turn
-game.make_move(4, 5)
+
+end
