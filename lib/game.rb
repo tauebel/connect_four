@@ -1,9 +1,9 @@
 require_relative 'board'
 require_relative 'player'
-require_relative 'ai'
+# require_relative 'ai'
 
 class Game
-  attr_reader :board, :turn_number, :turn, :allowed, :game_won, :game_tied
+  attr_reader :board, :turn_number, :turn, :allowed, :game_won, :game_tied, :id
   def initialize(player1, player2)
     @player1 = player1
     @player2 = player2

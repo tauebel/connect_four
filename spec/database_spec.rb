@@ -1,4 +1,4 @@
-require_relative "../database"
+require_relative "../lib/database"
 
 describe "Database" do
 
