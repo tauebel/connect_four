@@ -50,10 +50,11 @@ class GameUi
     while !@game.game_won && !@game.game_tied
       @game.show_board
       puts "Here are the possible moves:"
-      puts "#{@game.turn.name}, choose your move.  Please just type in the numbers separated by comma, no brackets."
+      p @game.possible_moves
+      puts "#{@game.turn.name}, your move, choose column"
       move = gets.chomp
-      @game.make_move(move[0].to_i,move[2].to_i)
-      puts "this move is not allowed" if !@game.allowed
+      @game.get_input(move.to_i)
+      puts "#{Color.red}#{Color.bold}this move is not allowed#{Color.clear}" if !@game.allowed
     end
     game_end
   end
@@ -67,10 +68,10 @@ class GameUi
           @game.show_board
           puts "Here are the possible moves:"
           p @game.possible_moves
-          puts "#{@game.turn.name}, choose your move.  Please just type in the numbers separated by comma, no brackets."
+          puts "#{@game.turn.name}, choose your move by column"
           move = gets.chomp
           @game.get_input(move.to_i)
-          puts "this move is not allowed" if !@game.allowed
+          puts "#{Color.red}#{Color.bold}this move is not allowed#{Color.clear}" if !@game.allowed
         end
       end
       game_end
@@ -78,12 +79,12 @@ class GameUi
 
   def game_end
     if @game.game_won == true
-      puts "CONNECT FOUR! Congratulations #{@game.turn.name}, you have won in #{(@game.turn_number + 1) / 2 } moves!!!"
+      puts "#{Color.green}#{Color.bold}CONNECT FOUR! Congratulations #{@game.turn.name}, you have won in #{(@game.turn_number + 1) / 2 } moves!!!#{Color.clear}"
     else
       puts "This game is tied, the board has no more slots in it"
     end
     @game.show_board
-
+    @game.game_over
     puts "What would you like to do? Your options are exit or next game"
     decision = gets.chomp
 

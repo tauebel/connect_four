@@ -28,20 +28,21 @@ class Board
   end
 
   def fill_slot(color,column, row)
-
-    return "slot not available" if !slot_available?(column,row)
-
     slot_by_location(column,row).fill(color)
     update_slots(column,row)
   end
 
   def update_slots(column,row)
     if row == 6
-      @available_slots.delete_at(column - 1)
+      @available_slots.delete_if {|slot| slot[0] == column}
     else
-      @available_slots[column -1] = [column, row + 1]
+      @available_slots.map! do |slot|
+        slot = [column, row + 1] if slot[0] == column
+        slot
+      end
     end
   end
+
 
   def print_board
     @slots.reverse.each {|row| print "#{row.inspect}\n".gsub(","," ")}

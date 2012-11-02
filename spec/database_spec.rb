@@ -1,25 +1,45 @@
 require_relative "../lib/database"
-
+require_relative "../lib/player"
+require_relative '../lib/game'
 describe "Database" do
 
+let (:db)     {Database.new("rspec_test_db.db", "../db/schema.sql")}
+let(:player)  {Player.new("Joe", "joe@gmail.com")}
+let(:player2) {Player.new("ted", "ted@gmail.com")}
+let(:new_game){Game.new(player, player2)} #<<<<<<<<<<<<<< FIX THIS!!!!!!!!! >>>>>>>>>>>>>>>>>>>
 
-let (:db) {Database.new("test_db.db", "../../db/schema.sql")}
-let(:player) {Player.new("Joe")}
-
-  it "has the correct number of tables" do
-    db.db.execute("SELECT count(*) FROM sqlite_master").flatten[0].should eq(4)
+  it "has the correct tables" do
+    [:players, :games, :game_moves].each do |table_name|
+      db.db.execute("select name from sqlite_master where type=='table'").flatten.include?(table_name.to_s).should be_true
+    end
   end
 
   it "adds a player" do
-    db.add_player(player)
+    db.db.execute("select name from players where email = '#{player.email}'")
   end
 
   it "gets a player's data" do
-    db.get_player(player)[1].to_s.should eq("Joe")
+    player1 = Database.retrieve_player(player)
+    player1[1].to_s.should eq "Joe"
   end
 
-  it "returns a player's win-loss record" do
-    db.get_player_win_loss(player).should eq([0,0,0])
+  it "returns a player's win" do
+    player1 = Database.retrieve_player(player)
+    player1[2].should eq(0)
+  end
+
+  it "returns a player's loss" do
+    player1 = Database.retrieve_player(player)
+    player1[3].should eq(0)
+  end
+
+  it "returns a player's draw" do
+    player1 = Database.retrieve_player(player)
+    player1[4].should eq(0)
+  end
+
+  it "can create a new game" do
+    new_game.should be_an_instance_of Game
   end
 
 end

@@ -26,12 +26,12 @@ attr_accessor :column, :row
   end
 
   def determine_chosen_field
-    if @board.field_value(@best_field_ai) >= @board.field_value(@best_field_user) * 5
+    if @board.field_value(@best_field_ai).to_f >= (@board.field_value(@best_field_user) * 5).to_f
       return @chosen_field = @best_field_ai
     else
       return @chosen_field = @best_field_user
     end
-  end  
+  end
 
   def determine_move
     best_field
@@ -59,6 +59,6 @@ attr_accessor :column, :row
   end
 
 
-  
- end 
+
+ end
 

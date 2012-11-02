@@ -52,10 +52,4 @@ describe Game do
 
     end
   end
-
-  # context "game_won" do
-  #   it "ends game" do
-  #     won_game.game_won.should eq "CONNECT FOUR! Congratulations Jake, you have won in 1 moves!!!"
-  #   end
-  # end
 end

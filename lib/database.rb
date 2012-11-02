@@ -13,7 +13,7 @@ class Database
       new("test_db.db").db.execute "INSERT INTO players (name, email, win, loss, draw, created_at, updated_at) VALUES ('#{player.name}', '#{player.email}', 0, 0, 0, '#{Time.now}', '#{Time.now}') ;" if self.not_exists?(player)
   end
 
-  def self.retrieve_player(player)  
+  def self.retrieve_player(player)
     new("test_db.db").db.execute ("SELECT id, name, win, loss, draw FROM players where email = '#{player.email}';"){|row| @row=row}
     if @row[1].to_s == player.name
       return @row
@@ -36,7 +36,15 @@ class Database
 
   def self.game_winner(game, player)
     new("test_db.db").db.execute ("UPDATE games set winner = #{player.id} WHERE id = #{game.id};")
-  end  
+  end
+
+  def self.game_over (players)
+    players.each do |player|
+      new("test_db.db").db.execute ("UPDATE players SET win   = (SELECT count(*) FROM games WHERE winner    = '#{player.id}') WHERE id  = '#{player.id}';")
+      new("test_db.db").db.execute ("UPDATE players SET loss  = (SELECT count(*) FROM games WHERE (player1  = '#{player.id}' OR player2 = '#{player.id}') AND winner != '#{player.id}' and winner IS NOT NULL) WHERE id = '#{player.id}';")
+      new("test_db.db").db.execute ("UPDATE players SET draw  = (SELECT count(*) FROM games WHERE (player1  = '#{player.id}' or player2 = '#{player.id}') and winner IS NULL) WHERE id = '#{player.id}';")
+    end
+  end
 
 
   private
@@ -49,6 +57,6 @@ class Database
      @email == nil
     end
 
-     
+
 end
 

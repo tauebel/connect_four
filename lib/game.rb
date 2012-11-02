@@ -25,6 +25,10 @@ class Game
     end
   end
 
+  def game_over
+    Database.game_over([@player1, @player2])
+  end
+
   def possible_moves
     @board.available_slots
   end
@@ -37,9 +41,9 @@ class Game
     add(@turn.id, column, row)
   end
 
-  def get_input(row)
-    @board.available_slots.each.each do |slot| 
-        @selected_slot = slot if slot.include?(row)
+  def get_input(column)
+    @board.available_slots.each do |slot|
+        @selected_slot = slot if slot[0] == column
     end
     make_move(@selected_slot[0], @selected_slot[1])
   end
