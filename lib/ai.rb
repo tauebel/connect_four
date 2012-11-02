@@ -1,4 +1,3 @@
-require_relative 'game'
 
 class AI
 attr_accessor :column, :row
@@ -8,37 +7,36 @@ attr_accessor :column, :row
     @board = board
     @row = 0
     @column = 0
-    @chosen_field = false
   end
 
   def make_move
     determine_move
     @game.make_move(@column, @row)
-    @chosen_field = false
   end
 
-   def best_field
-    @possible_fields.each do |field|
-      case @board.field_value(field)
-      when 15; return @chosen_field = field
-      when 3; return @chosen_field = field
-      when 10; return @chosen_field = field
-      when 2; return @chosen_field = field
-      when 5; return @chosen_field = field
-      when 1; return @chosen_field = field 
-      end
+  def best_field
+    @best_field_ai = get_possible_fields[0]
+    @best_field_user = get_possible_fields[0]
+
+    get_possible_fields.each do |field|
+      @value = @board.field_value(field)
+      @best_field_ai = field if @value == 15 || @value == 10 || @value == 5 && @value > @board.field_value(@best_field_ai)
+      @best_field_user = field if @value == 3 || @value == 2 || @value == 1 && @value > @board.field_value(@best_field_user)
     end
   end
+
+  def determine_chosen_field
+    if @board.field_value(@best_field_ai) >= @board.field_value(@best_field_user) * 5
+      return @chosen_field = @best_field_ai
+    else
+      return @chosen_field = @best_field_user
+    end
+  end  
 
   def determine_move
     best_field
-    if @chosen_field != false
-      determine_slot 
-    else
-      random_slot
-    end
-  end
-    
+    determine_chosen_field
+    determine_slot
   end
 
   def determine_slot
@@ -47,14 +45,6 @@ attr_accessor :column, :row
     @column = coordinates[0]
     @row = coordinates[1]
   end
-
-  def random_slot
-    coordinates = @board.available_slots[[rand(0...@board.available_slots.length)]]
-    @column = coordinates[0]
-    @row = coordinates[1]
-  end
-
-
 
   private
 

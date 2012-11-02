@@ -1,3 +1,9 @@
+require 'term/ansicolor'
+
+class Color
+  extend Term::ANSIColor
+end
+
 class Slot
   attr_reader :color, :value
 
@@ -22,7 +28,11 @@ class Slot
     if @empty
       "-"
     else
-      "#{self.color}"
+      if self.color == "R"
+        "#{Color.red}#{Color.bold}#{self.color}#{Color.clear}"
+      else
+        "#{Color.yellow}#{Color.bold}#{self.color}#{Color.clear}"
+      end
     end
   end
 
