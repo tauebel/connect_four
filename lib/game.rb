@@ -85,13 +85,13 @@ class Game
     end
   end
 
-jake = Player.new("Jake", "Spendar89@aol.com")
-bot = Player.new("Connect This AI", "NA")
-game = Game.new(jake, bot)
-game.get_input(1)
-game.get_input(2)
-game.get_input(3)
-
-out = "|"
-game.board.slots.reverse.each {|x| out +=  "#{x.join}|"}
-puts out
+# jake = Player.new("Jake", "Spendar89@aol.com")
+# bot = Player.new("Connect This AI", "NA")
+# game = Game.new(jake, bot)
+# game.get_input(1)
+# game.get_input(2)
+# game.get_input(3)
+#
+# out = "|"
+# game.board.slots.reverse.each {|x| out +=  "#{x.join}|"}
+# puts out

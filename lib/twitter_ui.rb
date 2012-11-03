@@ -17,7 +17,9 @@ class TwitterUi
     while !@game.game_won && !@game.game_tied
       if @game.turn == @player2
         @ai.make_move
-        @game.board.slots.each {|x| puts "|#{x.join}|"}  #<---- to twitter
+        out = "|"
+        @game.board.slots.reverse.each {|x| out +=  "#{x.join}|"}
+        puts out  #<---- to twitter
       else
         #<---- from twitter
       end
