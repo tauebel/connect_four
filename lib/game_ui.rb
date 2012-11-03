@@ -33,15 +33,15 @@ class GameUi
     if !@bot
       @game = Game.new(@player1, @player2)
       puts "Alright... ARE YOU READY TO RUMMMBBBBLLLEEEEE!  Ehm..."
-      puts "#{@player1.name} you will be starting, your color is RED, your tokens will be marked R"
-      puts "#{@player2.name} your color is YELLOW, your tokens will be marked Y"
+      puts "#{@player1.name} you will be starting, your color is RED, your tokens will be marked X"
+      puts "#{@player2.name} your color is YELLOW, your tokens will be marked O"
       puts "Here's your board"
       run_game
     else
       @game = Game.new(@player1, @player2)
       @ai = AI.new(@game, @game.board)
       puts "Alright... ARE YOU READY TO RUMMMBBBBLLLEEEEE!  Ehm..."
-      puts "#{@player1.name} you will be starting, your color is RED, your tokens will be marked R"
+      puts "#{@player1.name} you will be starting, your color is RED, your tokens will be marked X"
       run_bot_game
     end
   end
@@ -65,7 +65,8 @@ class GameUi
           @ai.make_move
           puts "Connect This has made her ingenious move"
         else
-          @game.show_board
+          # @game.show_board
+          p @game.board.slots
           puts "Here are the possible moves:"
           p @game.possible_moves
           puts "#{@game.turn.name}, choose your move by column"

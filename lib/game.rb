@@ -56,9 +56,9 @@ class Game
     end
 
     if @turn == @player1
-      @board.fill_slot("R", column, row)
+      @board.fill_slot("X", column, row)
     else
-      @board.fill_slot("Y", column, row)
+      @board.fill_slot("O", column, row)
     end
 
 
@@ -85,10 +85,13 @@ class Game
     end
   end
 
-# jake = Player.new("Jake", "Spendar89@aol.com")
-# bot = Player.new("Connect This AI", "NA")
-# game = Game.new(jake, bot)
-# ai = AI.new(game, game.board)
-# game.make_move(1,1)
-# ai.make_move
+jake = Player.new("Jake", "Spendar89@aol.com")
+bot = Player.new("Connect This AI", "NA")
+game = Game.new(jake, bot)
+game.get_input(1)
+game.get_input(2)
+game.get_input(3)
 
+out = "|"
+game.board.slots.reverse.each {|x| out +=  "#{x.join}|"}
+puts out

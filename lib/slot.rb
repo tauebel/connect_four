@@ -21,14 +21,14 @@ class Slot
     return "already filled" if empty? == false
     @empty = false
     @color = color
-    color == "R" ? @value = 1 : @value = 5
+    color == "X" ? @value = 1 : @value = 5
   end
 
   def to_s
     if @empty
       "-"
     else
-      if self.color == "R"
+      if self.color == "X"
         "#{Color.red}#{Color.bold}#{self.color}#{Color.clear}"
       else
         "#{Color.yellow}#{Color.bold}#{self.color}#{Color.clear}"
