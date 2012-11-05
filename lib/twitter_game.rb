@@ -60,9 +60,9 @@ class TwitterGame
     end
 
     if @turn == @player1
-      @board.fill_slot("X", column, row)
-    else
       @board.fill_slot("O", column, row)
+    else
+      @board.fill_slot("X", column, row)
     end
 
 
