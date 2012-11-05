@@ -1,6 +1,6 @@
 
-class AI
-attr_accessor :column, :row
+class TwitterAI
+  attr_accessor :column, :row
 
   def initialize(game, board)
     @game = game
@@ -20,13 +20,14 @@ attr_accessor :column, :row
 
     get_possible_fields.each do |field|
       @value = @board.field_value(field)
-      @best_field_ai = field if @value == 15 || @value == 10 || @value == 5 && @value > @board.field_value(@best_field_ai)
-      @best_field_user = field if @value == 3 || @value == 2 || @value == 1 && @value > @board.field_value(@best_field_user)
+      @best_field_ai = field if @value == 3 || @value == 2 || @value == 1 && @value > @board.field_value(@best_field_user)
+      @best_field_user = field if @value == 15 || @value == 10 || @value == 5 && @value > @board.field_value(@best_field_ai)
+
     end
   end
 
   def determine_chosen_field
-    if @board.field_value(@best_field_ai).to_f >= (@board.field_value(@best_field_user) * 5).to_f
+    if (@board.field_value(@best_field_ai)*5) >= @board.field_value(@best_field_user)
       return @chosen_field = @best_field_ai
     else
       return @chosen_field = @best_field_user

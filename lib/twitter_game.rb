@@ -1,9 +1,9 @@
-require_relative 'board'
+require_relative 'twitter_board'
 require_relative 'player'
-require_relative 'ai'
+require_relative 'twitter_ai'
 
 
-class Game
+class TwitterGame
   attr_reader :board, :turn_number, :turn, :allowed, :game_won, :game_tied, :id
   def initialize(player1, player2)
     @player1 = player1
@@ -11,7 +11,7 @@ class Game
     @id = retrieve_id
     @turn_number = 1
     @turn = player1
-    @board = Board.new
+    @board = TwitterBoard.new
     @game_won = false
     @game_tied = false
   end
@@ -43,8 +43,12 @@ class Game
 
   def get_input(column)
     @board.available_slots.each do |slot|
-        @selected_slot = slot if slot[0] == column
+        if slot[0] == column
+          @selected_slot = slot
+          break
+        end
     end
+
     make_move(@selected_slot[0], @selected_slot[1])
   end
 
