@@ -32,7 +32,7 @@ class TwitterUI
   def accept_challenge
     puts "finding game..."
     TweetStream::Client.new.track("Who wants to get demolished? #dbc_c4") do |status|
-      @opponent_name = status.user.screen_name if status.user.screen_name !="longfourplay"
+      @opponent_name = status.user.screen_name
       break if @opponent_name != nil
     end
     @home = false
