@@ -53,13 +53,13 @@ class TwitterUI
       @home == true ? game_loop_home : game_loop_away
     end
     end_game
+    accept_challenge
   end
 
   def end_game
     last_message = "This game of connect_four is over. The winner is #{@game.turn.name}. Congrats bro."
     puts last_message
     Twitter.update("@#{@opponent_name} #{last_message} #dbc_c4 ##{rand(1000)}")
-    return
   end
 
   def game_loop_away
@@ -94,7 +94,7 @@ class TwitterUI
       @get_move = @understand_tweet.get_column
     else
       puts "error: opponent did not correctly send its move.\nreceived board: #{@move}\nprevious board: #{@twitter_board}"
-      return
+      accept_challenge
     end
   end
 
@@ -117,12 +117,13 @@ class TwitterUI
   end
 
   def receive_move
-    Twitter.update("@#{@player1.name} Game on! #dbc_c4 ##{rand(1000)}") if @home == false && @first_move == true
+    Twitter.update("#{@player1.name} Game on! #dbc_c4 ##{rand(1000)}") if @home == false && @first_move == true
     TweetStream::Client.new.track(@handle, "#dbc_c4") do |status|
-      if @handle.match(status.text)
+      if @handle.match(status.text) && @opponent_name == status.user.screen_name
         @move = /\|.......\|.......\|.......\|.......\|.......\|.......\|/.match(status.text).to_s
         break if @move != nil
       else
+        puts "blocked attempt"
         receive_move
       end
     end
@@ -131,5 +132,5 @@ class TwitterUI
 
 end
 
-# TwitterUI.new("@jakesendar", TwitterAuth.new).accept_challenge if command[0] == "away"
-TwitterUI.new("@jakesendar", TwitterAuth.new).find_challenger
+TwitterUI.new("@jakesendar", TwitterAuth.new).accept_challenge if command[0] == "away"
+TwitterUI.new("@jakesendar", TwitterAuth.new).find_challenger if command[0] == "home"

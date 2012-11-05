@@ -27,9 +27,6 @@ class UnderstandTweet
       @modified_row[n] = "Z" if @modified_row[n] == @old_row[n]
       z_row << @modified_row[n]
     end
-    # print @new_board
-    #     puts @difference_row
-    #print z_row
     z_row
 
   end

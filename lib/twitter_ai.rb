@@ -15,8 +15,9 @@ class TwitterAI
   end
 
   def best_field
-    @best_field_ai = get_possible_fields[0]
-    @best_field_user = get_possible_fields[0]
+    number_possible_fields = get_possible_fields.length
+    @best_field_ai = get_possible_fields[rand(number_possible_fields)]
+    @best_field_user = get_possible_fields[rand(number_possible_fields)]
 
     get_possible_fields.each do |field|
       @value = @board.field_value(field)
